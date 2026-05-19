@@ -1,7 +1,8 @@
-/* Import moderního fontu */
+/* ==========================================================================
+   1. ZÁKLADNÍ NASTAVENÍ A PROMĚNNÉ
+   ========================================================================== */
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800;900&display=swap');
 
-/* CSS Proměnné pro snadnou změnu barev */
 :root {
     --primary: #00e5ff; /* Zářivá tyrkysová */
     --primary-dark: #00b3cc;
@@ -24,7 +25,9 @@ body {
     line-height: 1.6;
 }
 
-/* --- NAVIGACE --- */
+/* ==========================================================================
+   2. FLEXBOX NAVIGACE
+   ========================================================================== */
 .navbar {
     display: flex;
     justify-content: space-between;
@@ -65,7 +68,7 @@ body {
     position: relative;
 }
 
-/* Podtrhávací efekt u menu */
+/* Podtrhávací efekt u menu při hoveru */
 .nav-links a::after {
     content: '';
     position: absolute;
@@ -87,7 +90,9 @@ body {
     color: white;
 }
 
-/* --- TLAČÍTKA --- */
+/* ==========================================================================
+   3. TLAČÍTKA A HERO SEKCE (ÚVOD)
+   ========================================================================== */
 .btn {
     display: inline-block;
     background: var(--primary);
@@ -110,7 +115,6 @@ body {
     transform: translateY(-2px);
 }
 
-/* --- HERO SEKCE --- */
 .hero {
     position: relative;
     height: calc(100vh - 85px);
@@ -162,15 +166,13 @@ body {
     margin-bottom: 35px;
 }
 
-/* --- OBECNÝ KONTEJNER --- */
+/* ==========================================================================
+   4. STRUKTURA OBSAHU, KARTY A PRODUKTY (FLEXBOX)
+   ========================================================================== */
 .container {
     padding: 80px 8%;
     max-width: 1400px;
     margin: 0 auto;
-}
-
-.small-container {
-    max-width: 700px;
 }
 
 .section-header {
@@ -190,7 +192,6 @@ body {
     margin-top: 5px;
 }
 
-/* --- PRODUKTOVÉ KARTY (FLEXBOX) --- */
 .flex-grid {
     display: flex;
     flex-wrap: wrap;
@@ -198,14 +199,29 @@ body {
     justify-content: center;
 }
 
-.card {
+/* Klikatelné karty kategorií a produktů */
+.category-card, .clickable-product-card {
+    text-decoration: none;
+    color: inherit;
     background: var(--card-bg);
-    width: calc(33.333% - 20px);
+    width: calc(50% - 15px);
     min-width: 280px;
     border-radius: 12px;
-    overflow: hidden; /* Zabrání fotce přetéct při zvětšení */
+    overflow: hidden;
     border: 1px solid rgba(255,255,255,0.05);
-    transition: transform 0.4s ease, border-color 0.4s ease;
+    transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
+    display: block;
+}
+
+.clickable-product-card {
+    width: calc(33.333% - 20px);
+}
+
+/* HOVER EFEKTY PRO KARTY */
+.category-card:hover, .clickable-product-card:hover {
+    transform: translateY(-8px);
+    border-color: var(--primary);
+    box-shadow: 0 0 20px rgba(0, 229, 255, 0.2);
 }
 
 .card-image {
@@ -217,17 +233,12 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease; /* Plynulý zoom fotky */
+    transition: transform 0.5s ease;
 }
 
-.card:hover .card-image img {
-    transform: scale(1.1); /* Zvětšení fotky při hoveru */
-}
-
-.card:hover {
-    transform: translateY(-10px);
-    border-color: var(--primary);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+.category-card:hover .card-image img, 
+.clickable-product-card:hover .card-image img {
+    transform: scale(1.05);
 }
 
 .card-content {
@@ -252,7 +263,47 @@ body {
     color: var(--primary);
 }
 
-/* --- TECHNOLOGIE (FLEXBOX SPLIT) --- */
+/* Prvky uvnitř karet */
+.more-link {
+    color: var(--primary);
+    font-weight: 600;
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 15px;
+    transition: transform 0.3s;
+}
+
+.category-card:hover .more-link {
+    transform: translateX(5px);
+}
+
+.stick-tag {
+    background: var(--primary);
+    color: black;
+    padding: 3px 10px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    border-radius: 3px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.disabled-card {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.more-link-muted {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    display: inline-block;
+    margin-top: 15px;
+}
+
+/* ==========================================================================
+   5. SEKCIE TECHNOLOGIE A DETAILY
+   ========================================================================== */
 .tech-feature {
     display: flex;
     align-items: center;
@@ -287,38 +338,73 @@ body {
     display: block;
 }
 
-/* --- FORMULÁŘ --- */
-.contact-form {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+.breadcrumbs {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin-bottom: 30px;
 }
 
-.form-group input, 
-.form-group textarea {
-    width: 100%;
-    padding: 16px;
+.breadcrumbs a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+.breadcrumbs a:hover {
+    text-decoration: underline;
+}
+
+.tech-detail-layout {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.tech-detail-layout h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: var(--primary);
+    font-size: 1.2rem;
+    margin-bottom: 50px;
+}
+
+.text-cols .col-box {
     background: var(--card-bg);
-    border: 1px solid rgba(255,255,255,0.1);
-    border-radius: 6px;
+    padding: 30px;
+    border-radius: 8px;
+    flex: 1;
+    min-width: 250px;
+}
+
+.text-cols h4 {
+    font-size: 1.2rem;
     color: white;
-    font-family: inherit;
-    font-size: 1rem;
-    transition: border-color 0.3s;
+    margin-bottom: 15px;
 }
 
-.form-group input:focus, 
-.form-group textarea:focus {
-    outline: none;
-    border-color: var(--primary);
+.btn-secondary {
+    display: inline-block;
+    color: var(--text-muted);
+    text-decoration: none;
+    margin-top: 40px;
+    font-weight: 600;
+    transition: color 0.3s;
 }
 
-/* --- RESPONZIVITA --- */
+.btn-secondary:hover {
+    color: var(--primary);
+}
+
+/* ==========================================================================
+   6. RESPONZIVITA (MEDIA QUERIES)
+   ========================================================================== */
 @media (max-width: 992px) {
     .tech-feature {
         flex-direction: column;
     }
-    .card {
+    .category-card, .clickable-product-card {
         width: calc(50% - 15px);
     }
 }
@@ -332,7 +418,7 @@ body {
     .hero-content h1 {
         font-size: 2.8rem;
     }
-    .card {
+    .category-card, .clickable-product-card {
         width: 100%;
     }
 }
